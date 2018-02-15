@@ -60,14 +60,19 @@
             this._adjustmentResetEvent.Set();
         }
 
+        private void MainForm_Resize(Object sender, EventArgs e)
+        {
+            this._imageBuilder.UpdateImage();
+        }
+
         private void OpenImageFile(String fileName)
         {
             var fileSize = new FileInfo(fileName).Length;
 
             using (var fileStream = File.OpenRead(fileName))
             {
-                this._imageBuilder.SetImage(fileStream);
-                this._imageBuilder.UpdateImage(this.pictureBox1, fileStream);
+                this._imageBuilder.Init(this.pictureBox1, fileStream);
+                this._imageBuilder.UpdateImage();
             }
         }
 
@@ -154,7 +159,7 @@
 
                     this._lastAdjustment = null;
 
-                    this._imageBuilder.ApplyTo(this.pictureBox1, this._imageProperties);
+                    this._imageBuilder.UpdateImage(this._imageProperties);
                 }
             }
         }

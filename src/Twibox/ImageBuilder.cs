@@ -7,65 +7,86 @@
 
     public class ImageBuilder
     {
-        private MemoryStream _originalStream;
+        private PictureBox _pictureBox;
+        private MemoryStream _originalStream = new MemoryStream();
+        private MemoryStream _modifiedStream = new MemoryStream();
+        private MemoryStream _resizedStream = new MemoryStream();
 
-        public void SetImage(Stream stream)
+        public void Init(PictureBox pictureBox, Stream stream)
         {
-            if (this._originalStream != null)
-            {
-                this._originalStream.Dispose();
-                this._originalStream = null;
-            }
+            this._pictureBox = pictureBox;
 
-            this._originalStream = new MemoryStream((Int32)stream.Length);
+            stream.Seek(0, SeekOrigin.Begin);
+            this._originalStream.SetLength(stream.Length);
             stream.CopyTo(this._originalStream);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            this._modifiedStream.SetLength(stream.Length);
+            stream.CopyTo(this._modifiedStream);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            this._resizedStream.SetLength(stream.Length);
+            stream.CopyTo(this._resizedStream);
         }
 
-        public void ApplyTo(PictureBox pictureBox, ImageProperties imageProperties)
+        public void UpdateImage(ImageProperties imageProperties = null)
         {
             var elapsedTime = new ElapsedTime("BuildImage");
 
-            var memoryStream = new MemoryStream(this._originalStream.Capacity);
+            var resizeOnly = null == imageProperties;
+            var stream = resizeOnly ? this._modifiedStream : this._originalStream;
 
-            this._originalStream.Seek(0, SeekOrigin.Begin);
-
-            using (var image = Image.Load(this._originalStream))
+            stream.Seek(0, SeekOrigin.Begin);
+            using (var image = Image.Load(stream))
             {
-                if (imageProperties.Contrast != 0)
+                if (!resizeOnly)
                 {
-                    image.Contrast(imageProperties.Contrast);
+                    if (imageProperties.Contrast != 0)
+                    {
+                        image.Contrast(imageProperties.Contrast);
+                    }
+
+                    this._modifiedStream.Seek(0, SeekOrigin.Begin);
+                    image.Save(this._modifiedStream, ImageFormats.Bitmap);
                 }
 
-                image.Save(memoryStream, ImageFormats.Bitmap);
+                image.Resize(this._pictureBox.Width, this._pictureBox.Height);
+
+                lock (this._resizedStream)
+                {
+                    this._resizedStream.Seek(0, SeekOrigin.Begin);
+                    image.Save(this._resizedStream, ImageFormats.Bitmap);
+                }
             }
 
             elapsedTime.Lapse();
 
-            this.UpdateImage(pictureBox, memoryStream);
+            this.DrawImage();
         }
 
-        private delegate void UpdateImageEventDelegate(PictureBox pictureBox, MemoryStream memoryStream);
-        private UpdateImageEventDelegate _updateImageEventDelegate = null;
+        private delegate void DrawImageEventDelegate();
+        private DrawImageEventDelegate _drawImageEventDelegate = null;
 
-        public void UpdateImage(PictureBox pictureBox, Stream stream)
+        private void DrawImage()
         {
-            if (pictureBox.InvokeRequired)
+            if (this._pictureBox.InvokeRequired)
             {
-                if (null == this._updateImageEventDelegate)
+                if (null == this._drawImageEventDelegate)
                 {
-                    this._updateImageEventDelegate = new UpdateImageEventDelegate(this.UpdateImage);
+                    this._drawImageEventDelegate = new DrawImageEventDelegate(this.DrawImage);
                 }
 
-                pictureBox.BeginInvoke(this._updateImageEventDelegate, new object[] { pictureBox, stream });
+                this._pictureBox.BeginInvoke(this._drawImageEventDelegate, new object[] { });
 
                 return;
             }
 
             var elapsedTime = new ElapsedTime("UpdateImage");
 
-            pictureBox.Image = System.Drawing.Bitmap.FromStream(stream);
-
-            stream.Dispose();
+            lock (this._resizedStream)
+            {
+                this._pictureBox.Image = System.Drawing.Bitmap.FromStream(this._resizedStream);
+            }
 
             elapsedTime.Lapse();
         }
