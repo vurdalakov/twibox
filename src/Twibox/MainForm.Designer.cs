@@ -46,7 +46,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imageControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
             this.SuspendLayout();
@@ -189,7 +188,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imageControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).EndInit();
             this.ResumeLayout(false);

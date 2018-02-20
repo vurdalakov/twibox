@@ -7,14 +7,14 @@
 
     public class ImageBuilder
     {
-        private PictureBox _pictureBox;
+        private ImageControl _imageControl;
         private MemoryStream _originalStream = new MemoryStream();
         private MemoryStream _modifiedStream = new MemoryStream();
         private MemoryStream _resizedStream = new MemoryStream();
 
-        public void Init(PictureBox pictureBox, Stream stream)
+        public void Init(ImageControl imageControl, Stream stream)
         {
-            this._pictureBox = pictureBox;
+            this._imageControl = imageControl;
 
             stream.Seek(0, SeekOrigin.Begin);
             this._originalStream.SetLength(stream.Length);
@@ -50,7 +50,7 @@
                     image.Save(this._modifiedStream, ImageFormats.Bitmap);
                 }
 
-                image.Resize(this._pictureBox.Width, this._pictureBox.Height);
+                image.Resize(this._imageControl.Width, this._imageControl.Height);
 
                 lock (this._resizedStream)
                 {
@@ -69,14 +69,14 @@
 
         private void DrawImage()
         {
-            if (this._pictureBox.InvokeRequired)
+            if (this._imageControl.InvokeRequired)
             {
                 if (null == this._drawImageEventDelegate)
                 {
                     this._drawImageEventDelegate = new DrawImageEventDelegate(this.DrawImage);
                 }
 
-                this._pictureBox.BeginInvoke(this._drawImageEventDelegate, new object[] { });
+                this._imageControl.BeginInvoke(this._drawImageEventDelegate, new object[] { });
 
                 return;
             }
@@ -85,7 +85,7 @@
 
             lock (this._resizedStream)
             {
-                this._pictureBox.Image = System.Drawing.Bitmap.FromStream(this._resizedStream);
+                this._imageControl.DrawImage(System.Drawing.Bitmap.FromStream(this._resizedStream));
             }
 
             elapsedTime.Lapse();
