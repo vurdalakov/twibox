@@ -71,7 +71,7 @@
 
             using (var fileStream = File.OpenRead(fileName))
             {
-                this._imageBuilder.Init(this.pictureBox1, fileStream);
+                this._imageBuilder.Init(this.imageControl, fileStream);
                 this._imageBuilder.UpdateImage();
             }
         }

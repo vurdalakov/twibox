@@ -93,6 +93,9 @@
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="ElapsedTime.cs" />
     <Compile Include="ImageBuilder.cs" />
+    <Compile Include="ImageControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ImageProperties.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
