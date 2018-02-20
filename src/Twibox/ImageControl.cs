@@ -6,7 +6,7 @@
 
     public class ImageControl : Control
     {
-        private Image _image;
+        private Image _image = new Bitmap(1, 1);
 
         public ImageControl()
         {
