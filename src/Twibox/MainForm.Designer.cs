@@ -36,9 +36,13 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.imageControl = new Vurdalakov.ImageControl();
-            this.numericUpDownContrast = new System.Windows.Forms.NumericUpDown();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
+            this.numericUpDownContrast = new System.Windows.Forms.NumericUpDown();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.imageControl = new Vurdalakov.ImageControl();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -46,8 +50,10 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -124,24 +130,61 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.numericUpDownContrast);
-            this.splitContainer1.Panel2.Controls.Add(this.trackBarContrast);
+            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Size = new System.Drawing.Size(1356, 764);
             this.splitContainer1.SplitterDistance = 984;
             this.splitContainer1.TabIndex = 0;
             // 
-            // imageControl
+            // tabControl1
             // 
-            this.imageControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageControl.Location = new System.Drawing.Point(0, 0);
-            this.imageControl.Name = "imageControl";
-            this.imageControl.Size = new System.Drawing.Size(984, 764);
-            this.imageControl.TabIndex = 0;
-            this.imageControl.TabStop = false;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(368, 764);
+            this.tabControl1.TabIndex = 2;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.trackBarContrast);
+            this.tabPage1.Controls.Add(this.numericUpDownContrast);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(360, 738);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Tag = "Adjust";
+            this.tabPage1.Text = "Adjust";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Contrast";
+            // 
+            // trackBarContrast
+            // 
+            this.trackBarContrast.LargeChange = 10;
+            this.trackBarContrast.Location = new System.Drawing.Point(6, 18);
+            this.trackBarContrast.Maximum = 100;
+            this.trackBarContrast.Minimum = -100;
+            this.trackBarContrast.Name = "trackBarContrast";
+            this.trackBarContrast.Size = new System.Drawing.Size(265, 45);
+            this.trackBarContrast.TabIndex = 0;
+            this.trackBarContrast.TickFrequency = 10;
+            this.trackBarContrast.ValueChanged += new System.EventHandler(this.trackBarContrast_ValueChanged);
             // 
             // numericUpDownContrast
             // 
-            this.numericUpDownContrast.Location = new System.Drawing.Point(313, 33);
+            this.numericUpDownContrast.Location = new System.Drawing.Point(288, 18);
             this.numericUpDownContrast.Minimum = new decimal(new int[] {
             100,
             0,
@@ -152,17 +195,25 @@
             this.numericUpDownContrast.TabIndex = 1;
             this.numericUpDownContrast.ValueChanged += new System.EventHandler(this.numericUpDownContrast_ValueChanged);
             // 
-            // trackBarContrast
+            // tabPage2
             // 
-            this.trackBarContrast.LargeChange = 10;
-            this.trackBarContrast.Location = new System.Drawing.Point(30, 33);
-            this.trackBarContrast.Maximum = 100;
-            this.trackBarContrast.Minimum = -100;
-            this.trackBarContrast.Name = "trackBarContrast";
-            this.trackBarContrast.Size = new System.Drawing.Size(265, 45);
-            this.trackBarContrast.TabIndex = 0;
-            this.trackBarContrast.TickFrequency = 10;
-            this.trackBarContrast.ValueChanged += new System.EventHandler(this.trackBarContrast_ValueChanged);
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(360, 738);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Tag = "Crop";
+            this.tabPage2.Text = "Crop";
+            // 
+            // imageControl
+            // 
+            this.imageControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageControl.Location = new System.Drawing.Point(0, 0);
+            this.imageControl.Name = "imageControl";
+            this.imageControl.Size = new System.Drawing.Size(984, 764);
+            this.imageControl.TabIndex = 0;
+            this.imageControl.TabStop = false;
             // 
             // MainForm
             // 
@@ -185,11 +236,13 @@
             this.toolStripContainer1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,6 +261,10 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.TrackBar trackBarContrast;
         private System.Windows.Forms.NumericUpDown numericUpDownContrast;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

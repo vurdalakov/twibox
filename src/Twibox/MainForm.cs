@@ -9,12 +9,24 @@
 
     public partial class MainForm : Form
     {
+        private WebService _webService = new WebService();
+
         private ImageProperties _imageProperties = new ImageProperties();
         private ImageBuilder _imageBuilder = new ImageBuilder();
+
+        private String _imageFileName;
+
+        public String AppName { get; }
+        public String AppVersion { get; }
+        public ImageEditingMode Mode { get; private set; }  = ImageEditingMode.Adjust;
 
         public MainForm()
         {
             InitializeComponent();
+
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            this.AppName = fileVersionInfo.ProductName;
+            this.AppVersion = fileVersionInfo.FileVersion;
 
             this._adjustmentTimer.AutoReset = false;
             this._adjustmentTimer.Enabled = false;
@@ -24,11 +36,20 @@
 
         private void MainForm_Load(Object sender, EventArgs e)
         {
+            this._webService.Start(this);
+
             this.SetupTrackBars();
 
             new Thread(this.Processor).Start();
 
+            this.SetTitle();
+
             this.OpenImageFile(@"D:\photo\5489064_xlarge.jpg");
+        }
+
+        private void SetTitle()
+        {
+            this.Text = $"{this.AppName} {this.AppVersion} [{this.Mode} mode] - {this._imageFileName ?? "<Untitled>"}";
         }
 
         private void SetupTrackBars()
@@ -58,6 +79,8 @@
         {
             this._closing = true;
             this._adjustmentResetEvent.Set();
+
+            this._webService.Stop();
         }
 
         private void MainForm_Resize(Object sender, EventArgs e)
@@ -67,6 +90,8 @@
 
         private void OpenImageFile(String fileName)
         {
+            this._imageFileName = fileName;
+
             var fileSize = new FileInfo(fileName).Length;
 
             using (var fileStream = File.OpenRead(fileName))
@@ -169,6 +194,22 @@
             var contrastValue = 0 == adjustmentEvent.Diff ? adjustmentEvent.Value : (this.trackBarContrast.Value + adjustmentEvent.Diff);
 
             this._imageProperties.Contrast = contrastValue;
+        }
+
+        private void tabControl1_SelectedIndexChanged(Object sender, EventArgs e)
+        {
+            var modeName = this.tabControl1.SelectedTab.Tag as String;
+
+            var modes = Enum.GetValues(typeof(ImageEditingMode));
+            foreach (ImageEditingMode mode in modes)
+            {
+                if (modeName.Equals(mode.ToString()))
+                {
+                    this.Mode = mode;
+                    this.SetTitle();
+                    break;
+                }
+            }
         }
     }
 }

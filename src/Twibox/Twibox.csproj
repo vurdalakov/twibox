@@ -41,6 +41,12 @@
     <Reference Include="ImageSharp.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ImageSharp.Drawing.1.0.0-alpha9-00189\lib\netstandard1.1\ImageSharp.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="Nancy, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.1\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
     <Reference Include="SixLabors.Core, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SixLabors.Core.1.0.0-beta0004\lib\netstandard1.1\SixLabors.Core.dll</HintPath>
     </Reference>
@@ -91,11 +97,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlExtensions.cs" />
+    <Compile Include="DebugTracing.cs" />
     <Compile Include="ElapsedTime.cs" />
     <Compile Include="ImageBuilder.cs" />
     <Compile Include="ImageControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ImageEditingMode.cs" />
     <Compile Include="ImageProperties.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -103,6 +111,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WebService\ApplicationModule.cs" />
+    <Compile Include="WebService\WebService.cs" />
+    <Compile Include="WebService\WebServiceBootstrapper.cs" />
+    <Compile Include="WebService\WebServiceContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -132,5 +144,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
