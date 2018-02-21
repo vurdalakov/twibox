@@ -26,7 +26,7 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawImage(this._image, 0, 0);
-            e.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.White)), 20, 20, 100, 100);
+            //e.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.White)), 20, 20, 100, 100);
         }
     }
 }

@@ -113,6 +113,7 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // modeToolStripMenuItem
             // 
@@ -127,7 +128,7 @@
             // 
             this.adjustToolStripMenuItem.Name = "adjustToolStripMenuItem";
             this.adjustToolStripMenuItem.ShortcutKeyDisplayString = "A";
-            this.adjustToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.adjustToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.adjustToolStripMenuItem.Tag = "Adjust";
             this.adjustToolStripMenuItem.Text = "&Adjust";
             this.adjustToolStripMenuItem.Click += new System.EventHandler(this.toolStripItemMode_Click);
@@ -136,7 +137,7 @@
             // 
             this.cropToolStripMenuItem.Name = "cropToolStripMenuItem";
             this.cropToolStripMenuItem.ShortcutKeyDisplayString = "C";
-            this.cropToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cropToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.cropToolStripMenuItem.Tag = "Crop";
             this.cropToolStripMenuItem.Text = "&Crop";
             this.cropToolStripMenuItem.Click += new System.EventHandler(this.toolStripItemMode_Click);

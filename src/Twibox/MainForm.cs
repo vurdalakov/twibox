@@ -47,7 +47,7 @@
 
             new Thread(this.Processor).Start();
 
-            this.SetTitle();
+            this.SetImageEditingMode(ImageEditingMode.Adjust.ToString(), true);
 
             this.OpenImageFile(@"D:\photo\5489064_xlarge.jpg");
         }
@@ -123,7 +123,20 @@
 
         private void openToolStripMenuItem_Click(Object sender, EventArgs e)
         {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "All image types|*.bmp;*.gif;*.jpg;*.jpeg;*.png|BMP|*.bmp|GIF|*.gif|JPEG|*.jpg;*.jpeg|PNG|*.png";
 
+            if (openFileDialog.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            this.OpenImageFile(openFileDialog.FileName);
+        }
+
+        private void exitToolStripMenuItem_Click(Object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private class AdjustmentEvent
