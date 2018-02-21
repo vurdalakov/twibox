@@ -99,6 +99,7 @@
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="DebugTracing.cs" />
     <Compile Include="ElapsedTime.cs" />
+    <Compile Include="ImageAdjustmentType.cs" />
     <Compile Include="ImageBuilder.cs" />
     <Compile Include="ImageControl.cs">
       <SubType>Component</SubType>

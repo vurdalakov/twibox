@@ -12,6 +12,8 @@
         private MemoryStream _modifiedStream = new MemoryStream();
         private MemoryStream _resizedStream = new MemoryStream();
 
+        public ImageProperties ImageProperties = new ImageProperties();
+
         public void Init(ImageControl imageControl, Stream stream)
         {
             this._imageControl = imageControl;
@@ -29,21 +31,18 @@
             stream.CopyTo(this._resizedStream);
         }
 
-        public void UpdateImage(ImageProperties imageProperties = null)
+        public void UpdateImage()
         {
             var elapsedTime = new ElapsedTime("BuildImage");
 
-            var resizeOnly = null == imageProperties;
-            var stream = resizeOnly ? this._modifiedStream : this._originalStream;
-
-            stream.Seek(0, SeekOrigin.Begin);
-            using (var image = Image.Load(stream))
+            this._originalStream.Seek(0, SeekOrigin.Begin);
+            using (var image = Image.Load(this._originalStream))
             {
-                if (!resizeOnly)
+                if (true)
                 {
-                    if (imageProperties.Contrast != 0)
+                    if (this.ImageProperties.Contrast != 0)
                     {
-                        image.Contrast(imageProperties.Contrast);
+                        image.Contrast(this.ImageProperties.Contrast);
                     }
 
                     this._modifiedStream.Seek(0, SeekOrigin.Begin);

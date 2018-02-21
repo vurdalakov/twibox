@@ -12,7 +12,6 @@
     {
         private WebService _webService = new WebService();
 
-        private ImageProperties _imageProperties = new ImageProperties();
         private ImageBuilder _imageBuilder = new ImageBuilder();
 
         private String _imageFileName;
@@ -141,7 +140,7 @@
 
         private class AdjustmentEvent
         {
-            public Int32 Type { get; set; }
+            public ImageAdjustmentType Type { get; set; }
             public Int32 Diff { get; set; }
             public Int32 Value { get; set; }
         }
@@ -151,7 +150,7 @@
         private Stack<AdjustmentEvent> _adjustmentEvents = new Stack<AdjustmentEvent>();
         private AdjustmentEvent _lastAdjustment = null;
 
-        private void AddEvent(Int32 type, Int32 diff, Int32 value)
+        private void AddEvent(ImageAdjustmentType type, Int32 diff, Int32 value)
         {
             lock (this._adjustmentEvents)
             {
@@ -182,7 +181,7 @@
 
         private void ChangeContrast(Int32 contrastValue)
         {
-            AddEvent(1, 0, contrastValue);
+            AddEvent(ImageAdjustmentType.Contrast, 0, contrastValue);
         }
 
         private void trackBarContrast_ValueChanged(Object sender, EventArgs e)
@@ -217,16 +216,20 @@
 
                     this._lastAdjustment = null;
 
-                    this._imageBuilder.UpdateImage(this._imageProperties);
+                    this._imageBuilder.UpdateImage();
                 }
             }
         }
 
         private void UpdateImageProperties(AdjustmentEvent adjustmentEvent)
         {
-            var contrastValue = 0 == adjustmentEvent.Diff ? adjustmentEvent.Value : (this.trackBarContrast.Value + adjustmentEvent.Diff);
-
-            this._imageProperties.Contrast = contrastValue;
+            switch (adjustmentEvent.Type)
+            {
+                case ImageAdjustmentType.Contrast:
+                    var contrastValue = 0 == adjustmentEvent.Diff ? adjustmentEvent.Value : (this.trackBarContrast.Value + adjustmentEvent.Diff);
+                    this._imageBuilder.ImageProperties.Contrast = contrastValue;
+                    break;
+            }
         }
 
         private void SetImageEditingMode(String modeName, Boolean switchTabPage = true)
