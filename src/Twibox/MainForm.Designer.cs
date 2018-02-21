@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,9 +43,13 @@
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.numericUpDownContrast = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.toolStripStandard = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonAdjust = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonCrop = new System.Windows.Forms.ToolStripButton();
             this.imageControl = new Vurdalakov.ImageControl();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -54,6 +59,7 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).BeginInit();
+            this.toolStripStandard.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -110,13 +116,17 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1356, 764);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1356, 735);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 24);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(1356, 789);
             this.toolStripContainer1.TabIndex = 2;
             this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripStandard);
             // 
             // splitContainer1
             // 
@@ -131,7 +141,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1356, 764);
+            this.splitContainer1.Size = new System.Drawing.Size(1356, 735);
             this.splitContainer1.SplitterDistance = 984;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -143,7 +153,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(368, 764);
+            this.tabControl1.Size = new System.Drawing.Size(368, 735);
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -156,7 +166,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(360, 738);
+            this.tabPage1.Size = new System.Drawing.Size(360, 709);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Tag = "Adjust";
             this.tabPage1.Text = "Adjust";
@@ -201,17 +211,51 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(360, 738);
+            this.tabPage2.Size = new System.Drawing.Size(360, 709);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Tag = "Crop";
             this.tabPage2.Text = "Crop";
+            // 
+            // toolStripStandard
+            // 
+            this.toolStripStandard.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripStandard.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripStandard.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonAdjust,
+            this.toolStripButtonCrop});
+            this.toolStripStandard.Location = new System.Drawing.Point(3, 0);
+            this.toolStripStandard.Name = "toolStripStandard";
+            this.toolStripStandard.Size = new System.Drawing.Size(125, 54);
+            this.toolStripStandard.TabIndex = 0;
+            // 
+            // toolStripButtonAdjust
+            // 
+            this.toolStripButtonAdjust.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAdjust.Image")));
+            this.toolStripButtonAdjust.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAdjust.Name = "toolStripButtonAdjust";
+            this.toolStripButtonAdjust.Size = new System.Drawing.Size(45, 51);
+            this.toolStripButtonAdjust.Tag = "Adjust";
+            this.toolStripButtonAdjust.Text = "Adjust";
+            this.toolStripButtonAdjust.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonAdjust.Click += new System.EventHandler(this.toolStripButtonMode_Click);
+            // 
+            // toolStripButtonCrop
+            // 
+            this.toolStripButtonCrop.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCrop.Image")));
+            this.toolStripButtonCrop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCrop.Name = "toolStripButtonCrop";
+            this.toolStripButtonCrop.Size = new System.Drawing.Size(37, 51);
+            this.toolStripButtonCrop.Tag = "Crop";
+            this.toolStripButtonCrop.Text = "Crop";
+            this.toolStripButtonCrop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonCrop.Click += new System.EventHandler(this.toolStripButtonMode_Click);
             // 
             // imageControl
             // 
             this.imageControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageControl.Location = new System.Drawing.Point(0, 0);
             this.imageControl.Name = "imageControl";
-            this.imageControl.Size = new System.Drawing.Size(984, 764);
+            this.imageControl.Size = new System.Drawing.Size(984, 735);
             this.imageControl.TabIndex = 0;
             this.imageControl.TabStop = false;
             // 
@@ -232,6 +276,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -243,6 +289,8 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).EndInit();
+            this.toolStripStandard.ResumeLayout(false);
+            this.toolStripStandard.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,6 +313,9 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStrip toolStripStandard;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAdjust;
+        private System.Windows.Forms.ToolStripButton toolStripButtonCrop;
     }
 }
 

@@ -1,7 +1,5 @@
 ﻿namespace Vurdalakov
 {
-    using System.Diagnostics;
-    using System.Reflection;
     using Nancy;
 
     public class ApplicationModule : NancyModule

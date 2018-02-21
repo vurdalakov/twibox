@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Drawing;
     using System.IO;
     using System.Threading;
     using System.Windows.Forms;
@@ -36,6 +37,10 @@
 
         private void MainForm_Load(Object sender, EventArgs e)
         {
+            // hide tab control header
+            this.tabControl1.ItemSize = new Size(0, 1);
+            this.tabControl1.SizeMode = TabSizeMode.Fixed;
+
             this._webService.Start(this);
 
             this.SetupTrackBars();
@@ -196,20 +201,52 @@
             this._imageProperties.Contrast = contrastValue;
         }
 
-        private void tabControl1_SelectedIndexChanged(Object sender, EventArgs e)
+        private void SetImageEditingMode(String modeName, Boolean switchTabPage = true)
         {
-            var modeName = this.tabControl1.SelectedTab.Tag as String;
-
-            var modes = Enum.GetValues(typeof(ImageEditingMode));
-            foreach (ImageEditingMode mode in modes)
+            var mode = modeName.ToImageEditingMode();
+            if (ImageEditingMode.None == mode)
             {
-                if (modeName.Equals(mode.ToString()))
+                return;
+            }
+
+            this.Mode = mode;
+            this.SetTitle();
+
+            foreach (var toolStripItem in this.toolStripStandard.Items)
+            {
+                if (toolStripItem is ToolStripButton toolStripButton)
                 {
-                    this.Mode = mode;
-                    this.SetTitle();
+                    var buttonMode = ImageEditingModeExtensions.ToImageEditingMode(toolStripButton.Tag as String);
+                    if (buttonMode != ImageEditingMode.None)
+                    {
+                        toolStripButton.Checked = buttonMode == mode;
+                    }
+                }
+            }
+
+            if (!switchTabPage)
+            {
+                return;
+            }
+
+            foreach (TabPage tabPage in this.tabControl1.TabPages)
+            {
+                if (tabPage.IsImageEditingMode(mode))
+                {
+                    this.tabControl1.SelectedTab = tabPage;
                     break;
                 }
             }
+        }
+
+        private void tabControl1_SelectedIndexChanged(Object sender, EventArgs e)
+        {
+            this.SetImageEditingMode(this.tabControl1.SelectedTab.Tag as String, false);
+        }
+
+        private void toolStripButtonMode_Click(Object sender, EventArgs e)
+        {
+            this.SetImageEditingMode((sender as ToolStripItem)?.Tag as String);
         }
     }
 }
