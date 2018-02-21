@@ -12,7 +12,7 @@
     {
         private WebService _webService = new WebService();
 
-        private ImageBuilder _imageBuilder = new ImageBuilder();
+        private ImageBuilder _imageBuilder;
 
         private String _imageFileName;
 
@@ -115,6 +115,13 @@
 
             using (var fileStream = File.OpenRead(fileName))
             {
+                if (this._imageBuilder != null)
+                {
+                    this._imageBuilder.Dispose();
+                    this._imageBuilder = null;
+                }
+
+                this._imageBuilder = new ImageBuilder();
                 this._imageBuilder.Init(this.imageControl, fileStream);
                 this._imageBuilder.UpdateImage();
             }

@@ -2,10 +2,9 @@
 {
     using System;
     using System.IO;
-    using System.Windows.Forms;
     using ImageSharp;
 
-    public class ImageBuilder
+    public class ImageBuilder : IDisposable
     {
         private ImageControl _imageControl;
         private MemoryStream _originalStream = new MemoryStream();
@@ -89,5 +88,32 @@
 
             elapsedTime.Lapse();
         }
+
+        #region IDisposable
+
+        private Boolean isDisposed = false;
+
+        protected virtual void Dispose(Boolean disposing)
+        {
+            if (!isDisposed)
+            {
+                if (disposing)
+                {
+                    // dispose managed objects
+                    this._originalStream.Dispose();
+                    this._modifiedStream.Dispose();
+                    this._resizedStream.Dispose();
+                }
+
+               isDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        #endregion
     }
 }
