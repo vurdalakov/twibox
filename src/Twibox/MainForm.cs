@@ -93,6 +93,21 @@
             this._imageBuilder.UpdateImage();
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.A:
+                    this.adjustToolStripMenuItem.PerformClick();
+                    return true;
+                case Keys.C:
+                    this.cropToolStripMenuItem.PerformClick();
+                    return true;
+                default:
+                    return base.ProcessCmdKey(ref msg, keyData);
+            }
+        }
+
         private void OpenImageFile(String fileName)
         {
             this._imageFileName = fileName;
@@ -244,7 +259,7 @@
             this.SetImageEditingMode(this.tabControl1.SelectedTab.Tag as String, false);
         }
 
-        private void toolStripButtonMode_Click(Object sender, EventArgs e)
+        private void toolStripItemMode_Click(Object sender, EventArgs e)
         {
             this.SetImageEditingMode((sender as ToolStripItem)?.Tag as String);
         }

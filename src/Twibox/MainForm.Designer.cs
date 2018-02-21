@@ -35,6 +35,9 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adjustToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -73,7 +76,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.modeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1356, 24);
@@ -109,6 +113,33 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            // 
+            // modeToolStripMenuItem
+            // 
+            this.modeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adjustToolStripMenuItem,
+            this.cropToolStripMenuItem});
+            this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
+            this.modeToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.modeToolStripMenuItem.Text = "&Mode";
+            // 
+            // adjustToolStripMenuItem
+            // 
+            this.adjustToolStripMenuItem.Name = "adjustToolStripMenuItem";
+            this.adjustToolStripMenuItem.ShortcutKeyDisplayString = "A";
+            this.adjustToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.adjustToolStripMenuItem.Tag = "Adjust";
+            this.adjustToolStripMenuItem.Text = "&Adjust";
+            this.adjustToolStripMenuItem.Click += new System.EventHandler(this.toolStripItemMode_Click);
+            // 
+            // cropToolStripMenuItem
+            // 
+            this.cropToolStripMenuItem.Name = "cropToolStripMenuItem";
+            this.cropToolStripMenuItem.ShortcutKeyDisplayString = "C";
+            this.cropToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cropToolStripMenuItem.Tag = "Crop";
+            this.cropToolStripMenuItem.Text = "&Crop";
+            this.cropToolStripMenuItem.Click += new System.EventHandler(this.toolStripItemMode_Click);
             // 
             // toolStripContainer1
             // 
@@ -225,7 +256,7 @@
             this.toolStripButtonCrop});
             this.toolStripStandard.Location = new System.Drawing.Point(3, 0);
             this.toolStripStandard.Name = "toolStripStandard";
-            this.toolStripStandard.Size = new System.Drawing.Size(125, 54);
+            this.toolStripStandard.Size = new System.Drawing.Size(94, 54);
             this.toolStripStandard.TabIndex = 0;
             // 
             // toolStripButtonAdjust
@@ -237,7 +268,8 @@
             this.toolStripButtonAdjust.Tag = "Adjust";
             this.toolStripButtonAdjust.Text = "Adjust";
             this.toolStripButtonAdjust.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonAdjust.Click += new System.EventHandler(this.toolStripButtonMode_Click);
+            this.toolStripButtonAdjust.ToolTipText = "Adjust (A)";
+            this.toolStripButtonAdjust.Click += new System.EventHandler(this.toolStripItemMode_Click);
             // 
             // toolStripButtonCrop
             // 
@@ -248,7 +280,8 @@
             this.toolStripButtonCrop.Tag = "Crop";
             this.toolStripButtonCrop.Text = "Crop";
             this.toolStripButtonCrop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonCrop.Click += new System.EventHandler(this.toolStripButtonMode_Click);
+            this.toolStripButtonCrop.ToolTipText = "Crop (C)";
+            this.toolStripButtonCrop.Click += new System.EventHandler(this.toolStripItemMode_Click);
             // 
             // imageControl
             // 
@@ -316,6 +349,9 @@
         private System.Windows.Forms.ToolStrip toolStripStandard;
         private System.Windows.Forms.ToolStripButton toolStripButtonAdjust;
         private System.Windows.Forms.ToolStripButton toolStripButtonCrop;
+        private System.Windows.Forms.ToolStripMenuItem modeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adjustToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cropToolStripMenuItem;
     }
 }
 
