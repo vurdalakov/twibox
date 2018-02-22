@@ -24,7 +24,7 @@
         {
             InitializeComponent();
 
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location);
             this.AppName = fileVersionInfo.ProductName;
             this.AppVersion = fileVersionInfo.FileVersion;
 
@@ -36,6 +36,9 @@
 
         private void MainForm_Load(Object sender, EventArgs e)
         {
+            this.UpgradeUserSettings();
+            this.RestoreWindowPlacement();
+
             // hide tab control header
             this.tabControl1.ItemSize = new Size(0, 1);
             this.tabControl1.SizeMode = TabSizeMode.Fixed;
@@ -85,11 +88,13 @@
             this._adjustmentResetEvent.Set();
 
             this._webService.Stop();
+
+            this.SaveWindowPlacement();
         }
 
         private void MainForm_Resize(Object sender, EventArgs e)
         {
-            this._imageBuilder.UpdateImage();
+            this._imageBuilder?.UpdateImage();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Vurdalakov\AssemblyExtensions.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="DebugTracing.cs" />
     <Compile Include="ElapsedTime.cs" />
@@ -112,6 +113,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vurdalakov\FormExtensions.cs" />
+    <Compile Include="Vurdalakov\SerializeTool.cs" />
+    <Compile Include="Vurdalakov\StringExtensions.cs" />
+    <Compile Include="Vurdalakov\WindowPlacement.cs" />
     <Compile Include="WebService\ApplicationModule.cs" />
     <Compile Include="WebService\WebService.cs" />
     <Compile Include="WebService\WebServiceBootstrapper.cs" />
