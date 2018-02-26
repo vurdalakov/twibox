@@ -1,6 +1,7 @@
 ﻿namespace Vurdalakov
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Drawing;
@@ -191,6 +192,8 @@
             this._adjustmentTimer.Start();
         }
 
+        private Boolean _doNotProcessAdjustmentControlChange = false;
+
         public void SetAdjustment(ImageAdjustmentType adjustmentType, Int32 adjustmentDiff, Int32 adjustmentValue)
         {
             switch (adjustmentType)
@@ -200,20 +203,42 @@
                     break;
                 default:
                     // TODO
-                    break;
+                    return;
             }
         }
 
-        private void trackBarContrast_ValueChanged(Object sender, EventArgs e)
-        {
-            this.SetAdjustment(ImageAdjustmentType.Contrast, 0, this.trackBarContrast.Value);
-            this.numericUpDownContrast.Value = this.trackBarContrast.Value;
-        }
+        //private void trackBarContrast_ValueChanged(Object sender, EventArgs e)
+        //{
+        //    this.SetAdjustment(ImageAdjustmentType.Contrast, 0, this.trackBarContrast.Value);
+        //    this.numericUpDownContrast.Value = this.trackBarContrast.Value;
+        //}
 
-        private void numericUpDownContrast_ValueChanged(Object sender, EventArgs e)
+        //private void numericUpDownContrast_ValueChanged(Object sender, EventArgs e)
+        //{
+        //    this.SetAdjustment(ImageAdjustmentType.Contrast, 0, (Int32)this.numericUpDownContrast.Value);
+        //    this.trackBarContrast.Value = (Int32)this.numericUpDownContrast.Value;
+        //}
+
+        private void OnAdjustmentControlValueChanged(Object sender, EventArgs e)
         {
-            this.SetAdjustment(ImageAdjustmentType.Contrast, 0, (Int32)this.numericUpDownContrast.Value);
-            this.trackBarContrast.Value = (Int32)this.numericUpDownContrast.Value;
+            if (this._doNotProcessAdjustmentControlChange)
+            {
+                return;
+            }
+
+            var adjustmentControl = sender as Control;
+
+            var adjustmentName = ImageAdjustmentTypeExtensions.ToImageAdjustmentType(adjustmentControl);
+            if (ImageAdjustmentType.None == adjustmentName)
+            {
+                // TODO
+                return;
+            }
+
+            var adjustmentValue = (adjustmentControl is TrackBar trackBar) ? trackBar.Value :
+                ((adjustmentControl is NumericUpDown numericUpDown) ? (Int32)numericUpDown.Value : throw new Exception());
+
+            this.SetAdjustment(adjustmentName, 0, adjustmentValue);
         }
 
         private void Processor()
@@ -231,7 +256,9 @@
                     while (this._adjustmentEvents.Count > 0)
                     {
                         var adjustmentEvent = this._adjustmentEvents.Pop();
-                        this.UpdateImageProperties(adjustmentEvent);
+
+                        var adjustmentValue = this.UpdateImageProperty(adjustmentEvent.Type, adjustmentEvent.Diff, adjustmentEvent.Value);
+                        this.UpdateAdjustmentControls(adjustmentEvent.Type, adjustmentValue);
                     }
 
                     this._lastAdjustment = null;
@@ -241,14 +268,41 @@
             }
         }
 
-        private void UpdateImageProperties(AdjustmentEvent adjustmentEvent)
+        private Int32 UpdateImageProperty(ImageAdjustmentType adjustmentType, Int32 adjustmentDiff, Int32 adjustmentValue)
         {
-            switch (adjustmentEvent.Type)
+            var newAdjustmentValue = 0 == adjustmentDiff ? adjustmentValue : (this._imageBuilder.ImageProperties.Get(adjustmentType) + adjustmentDiff);
+
+            this._imageBuilder.ImageProperties.Set(adjustmentType, newAdjustmentValue);
+
+            return newAdjustmentValue;
+        }
+
+        private void UpdateAdjustmentControls(ImageAdjustmentType adjustmentType, Int32 adjustmentValue)
+        {
+            EnumControls(this.Controls);
+
+            void EnumControls(IEnumerable controls)
             {
-                case ImageAdjustmentType.Contrast:
-                    var contrastValue = 0 == adjustmentEvent.Diff ? adjustmentEvent.Value : (this.trackBarContrast.Value + adjustmentEvent.Diff);
-                    this._imageBuilder.ImageProperties.Contrast = contrastValue;
-                    break;
+                foreach (Control control in controls)
+                {
+                    var controlAdjustmentType = ImageAdjustmentTypeExtensions.ToImageAdjustmentType(control);
+                    if (controlAdjustmentType == adjustmentType)
+                    {
+                        if (control is TrackBar trackBar)
+                        {
+                            trackBar.InvokeIfRequired(() => trackBar.Value = adjustmentValue);
+                        }
+                        else if (control is NumericUpDown numericUpDown)
+                        {
+                            numericUpDown.InvokeIfRequired(() => numericUpDown.Value = adjustmentValue);
+                        }
+                    }
+
+                    if (control.HasChildren)
+                    {
+                        EnumControls(control.Controls);
+                    }
+                }
             }
         }
 

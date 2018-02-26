@@ -39,9 +39,9 @@
             {
                 if (true)
                 {
-                    if (this.ImageProperties.Contrast != 0)
+                    if (this.ImageProperties.IsModified(ImageAdjustmentType.Contrast))
                     {
-                        image.Contrast(this.ImageProperties.Contrast);
+                        image.Contrast(this.ImageProperties.Get(ImageAdjustmentType.Contrast));
                     }
 
                     this._modifiedStream.Seek(0, SeekOrigin.Begin);
@@ -67,26 +67,17 @@
 
         private void DrawImage()
         {
-            if (this._imageControl.InvokeRequired)
+            this._imageControl.InvokeIfRequired(() =>
             {
-                if (null == this._drawImageEventDelegate)
+                var elapsedTime = new ElapsedTime("UpdateImage");
+
+                lock (this._resizedStream)
                 {
-                    this._drawImageEventDelegate = new DrawImageEventDelegate(this.DrawImage);
+                    this._imageControl.DrawImage(System.Drawing.Bitmap.FromStream(this._resizedStream));
                 }
 
-                this._imageControl.BeginInvoke(this._drawImageEventDelegate, new object[] { });
-
-                return;
-            }
-
-            var elapsedTime = new ElapsedTime("UpdateImage");
-
-            lock (this._resizedStream)
-            {
-                this._imageControl.DrawImage(System.Drawing.Bitmap.FromStream(this._resizedStream));
-            }
-
-            elapsedTime.Lapse();
+                elapsedTime.Lapse();
+            });
         }
 
         #region IDisposable

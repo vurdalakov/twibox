@@ -6,6 +6,18 @@
 
     public static class ControlExtensions
     {
+        public static void InvokeIfRequired(this Control control, Action action)
+        {
+            if (control.InvokeRequired)
+            {
+                control.BeginInvoke(action);
+            }
+            else
+            {
+                action.Invoke();
+            }
+        }
+
         public static void SetDoubleClick(this Control control)
         {
             control.SetStyle(ControlStyles.StandardClick | ControlStyles.StandardDoubleClick, true);

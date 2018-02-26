@@ -40,6 +40,7 @@
             this.cropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.imageControl = new Vurdalakov.ImageControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@
             this.toolStripStandard = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAdjust = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCrop = new System.Windows.Forms.ToolStripButton();
-            this.imageControl = new Vurdalakov.ImageControl();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -177,6 +177,15 @@
             this.splitContainer1.SplitterDistance = 984;
             this.splitContainer1.TabIndex = 0;
             // 
+            // imageControl
+            // 
+            this.imageControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageControl.Location = new System.Drawing.Point(0, 0);
+            this.imageControl.Name = "imageControl";
+            this.imageControl.Size = new System.Drawing.Size(984, 735);
+            this.imageControl.TabIndex = 0;
+            this.imageControl.TabStop = false;
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -221,8 +230,9 @@
             this.trackBarContrast.Name = "trackBarContrast";
             this.trackBarContrast.Size = new System.Drawing.Size(265, 45);
             this.trackBarContrast.TabIndex = 0;
+            this.trackBarContrast.Tag = "Contrast";
             this.trackBarContrast.TickFrequency = 10;
-            this.trackBarContrast.ValueChanged += new System.EventHandler(this.trackBarContrast_ValueChanged);
+            this.trackBarContrast.ValueChanged += new System.EventHandler(this.OnAdjustmentControlValueChanged);
             // 
             // numericUpDownContrast
             // 
@@ -235,7 +245,8 @@
             this.numericUpDownContrast.Name = "numericUpDownContrast";
             this.numericUpDownContrast.Size = new System.Drawing.Size(42, 20);
             this.numericUpDownContrast.TabIndex = 1;
-            this.numericUpDownContrast.ValueChanged += new System.EventHandler(this.numericUpDownContrast_ValueChanged);
+            this.numericUpDownContrast.Tag = "Contrast";
+            this.numericUpDownContrast.ValueChanged += new System.EventHandler(this.OnAdjustmentControlValueChanged);
             // 
             // tabPage2
             // 
@@ -283,15 +294,6 @@
             this.toolStripButtonCrop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonCrop.ToolTipText = "Crop (C)";
             this.toolStripButtonCrop.Click += new System.EventHandler(this.toolStripItemMode_Click);
-            // 
-            // imageControl
-            // 
-            this.imageControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageControl.Location = new System.Drawing.Point(0, 0);
-            this.imageControl.Name = "imageControl";
-            this.imageControl.Size = new System.Drawing.Size(984, 735);
-            this.imageControl.TabIndex = 0;
-            this.imageControl.TabStop = false;
             // 
             // MainForm
             // 
