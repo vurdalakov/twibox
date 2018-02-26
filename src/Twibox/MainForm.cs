@@ -192,8 +192,6 @@
             this._adjustmentTimer.Start();
         }
 
-        private Boolean _doNotProcessAdjustmentControlChange = false;
-
         public void SetAdjustment(ImageAdjustmentType adjustmentType, Int32 adjustmentDiff, Int32 adjustmentValue)
         {
             switch (adjustmentType)
@@ -207,21 +205,11 @@
             }
         }
 
-        //private void trackBarContrast_ValueChanged(Object sender, EventArgs e)
-        //{
-        //    this.SetAdjustment(ImageAdjustmentType.Contrast, 0, this.trackBarContrast.Value);
-        //    this.numericUpDownContrast.Value = this.trackBarContrast.Value;
-        //}
-
-        //private void numericUpDownContrast_ValueChanged(Object sender, EventArgs e)
-        //{
-        //    this.SetAdjustment(ImageAdjustmentType.Contrast, 0, (Int32)this.numericUpDownContrast.Value);
-        //    this.trackBarContrast.Value = (Int32)this.numericUpDownContrast.Value;
-        //}
+        private ThreadSafeInt64 _adjustmentControlChangeCounter = new ThreadSafeInt64();
 
         private void OnAdjustmentControlValueChanged(Object sender, EventArgs e)
         {
-            if (this._doNotProcessAdjustmentControlChange)
+            if (!this._adjustmentControlChangeCounter.IsZero())
             {
                 return;
             }
@@ -290,11 +278,11 @@
                     {
                         if (control is TrackBar trackBar)
                         {
-                            trackBar.InvokeIfRequired(() => trackBar.Value = adjustmentValue);
+                            this.UpdateAdjustmentControl(() => trackBar.Value = adjustmentValue);
                         }
                         else if (control is NumericUpDown numericUpDown)
                         {
-                            numericUpDown.InvokeIfRequired(() => numericUpDown.Value = adjustmentValue);
+                            this.UpdateAdjustmentControl(() => numericUpDown.Value = adjustmentValue);
                         }
                     }
 
@@ -304,6 +292,16 @@
                     }
                 }
             }
+        }
+
+        private void UpdateAdjustmentControl(Action action)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this._adjustmentControlChangeCounter.Increment();
+                action.Invoke();
+                this._adjustmentControlChangeCounter.Decrement();
+            });
         }
 
         private void SetImageEditingMode(String modeName, Boolean switchTabPage = true)
