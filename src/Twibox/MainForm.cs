@@ -191,20 +191,28 @@
             this._adjustmentTimer.Start();
         }
 
-        private void ChangeContrast(Int32 contrastValue)
+        public void SetAdjustment(ImageAdjustmentType adjustmentType, Int32 adjustmentDiff, Int32 adjustmentValue)
         {
-            AddEvent(ImageAdjustmentType.Contrast, 0, contrastValue);
+            switch (adjustmentType)
+            {
+                case ImageAdjustmentType.Contrast:
+                    this.AddEvent(adjustmentType, adjustmentDiff, adjustmentValue);
+                    break;
+                default:
+                    // TODO
+                    break;
+            }
         }
 
         private void trackBarContrast_ValueChanged(Object sender, EventArgs e)
         {
-            this.ChangeContrast(this.trackBarContrast.Value);
+            this.SetAdjustment(ImageAdjustmentType.Contrast, 0, this.trackBarContrast.Value);
             this.numericUpDownContrast.Value = this.trackBarContrast.Value;
         }
 
         private void numericUpDownContrast_ValueChanged(Object sender, EventArgs e)
         {
-            this.ChangeContrast((Int32)this.numericUpDownContrast.Value);
+            this.SetAdjustment(ImageAdjustmentType.Contrast, 0, (Int32)this.numericUpDownContrast.Value);
             this.trackBarContrast.Value = (Int32)this.numericUpDownContrast.Value;
         }
 

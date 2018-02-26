@@ -117,6 +117,7 @@
     <Compile Include="Vurdalakov\SerializeTool.cs" />
     <Compile Include="Vurdalakov\StringExtensions.cs" />
     <Compile Include="Vurdalakov\WindowPlacement.cs" />
+    <Compile Include="WebService\AdjustmentModule.cs" />
     <Compile Include="WebService\ApplicationModule.cs" />
     <Compile Include="WebService\WebService.cs" />
     <Compile Include="WebService\WebServiceBootstrapper.cs" />
