@@ -14,8 +14,8 @@
             this._mainForm = mainForm;
         }
 
-        protected override void OnConnected() { Trace("OnConnected"); }
-        protected override void OnDisconnected() { Trace("OnDisconnected"); }
+        protected override void OnClientConnected() { Trace("OnClientConnected"); }
+        protected override void OnClientDisconnected() { Trace("OnClientDisconnected"); }
 
         protected override void OnMessageReceived(String message)
         {

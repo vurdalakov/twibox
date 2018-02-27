@@ -97,7 +97,7 @@
                         {
                             _pipeServer.EndWaitForConnection(result);
 
-                            OnConnected();
+                            OnClientConnected();
                         }
                         catch (Exception ex)
                         {
@@ -156,7 +156,7 @@
                         {
                             if (!_isStopping)
                             {
-                                OnDisconnected();
+                                OnClientDisconnected();
 
                                 Stop();
                                 Start();
