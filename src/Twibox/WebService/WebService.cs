@@ -17,7 +17,7 @@
             this.Stop();
 
             var port = 61786;
-            var baseUrl = $"http://localhost:{port}/api/";
+            var baseUrl = $"http://localhost:{port}";
 
             try
             {

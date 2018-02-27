@@ -351,5 +351,35 @@
         {
             this.SetImageEditingMode((sender as ToolStripItem)?.Tag as String);
         }
+
+        #region Crop mode
+
+        private void buttonCropStart_Click(Object sender, EventArgs e)
+        {
+            this.EnableCropMode(true);
+        }
+
+        private void buttonCropApply_Click(Object sender, EventArgs e)
+        {
+            this.EnableCropMode(false);
+        }
+
+        private void buttonCropReject_Click(Object sender, EventArgs e)
+        {
+            this.EnableCropMode(false);
+        }
+
+        public void EnableCropMode(Boolean enable)
+        {
+            this.SetImageEditingMode(enable ? "Crop" : "Adjust");
+
+            this.buttonCropStart.Enabled = !enable;
+            this.buttonCropApply.Enabled = enable;
+            this.buttonCropReject.Enabled = enable;
+
+            this.imageControl.SetMode(enable ? ImageControlMode.Selection : ImageControlMode.Normal);
+        }
+
+        #endregion
     }
 }

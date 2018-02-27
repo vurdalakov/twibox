@@ -50,6 +50,9 @@
             this.toolStripStandard = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAdjust = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCrop = new System.Windows.Forms.ToolStripButton();
+            this.buttonCropStart = new System.Windows.Forms.Button();
+            this.buttonCropApply = new System.Windows.Forms.Button();
+            this.buttonCropReject = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -62,6 +65,7 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.toolStripStandard.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -251,6 +255,9 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.buttonCropReject);
+            this.tabPage2.Controls.Add(this.buttonCropApply);
+            this.tabPage2.Controls.Add(this.buttonCropStart);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -295,6 +302,38 @@
             this.toolStripButtonCrop.ToolTipText = "Crop (C)";
             this.toolStripButtonCrop.Click += new System.EventHandler(this.toolStripItemMode_Click);
             // 
+            // buttonCropStart
+            // 
+            this.buttonCropStart.Location = new System.Drawing.Point(21, 19);
+            this.buttonCropStart.Name = "buttonCropStart";
+            this.buttonCropStart.Size = new System.Drawing.Size(319, 36);
+            this.buttonCropStart.TabIndex = 0;
+            this.buttonCropStart.Text = "Start Crop";
+            this.buttonCropStart.UseVisualStyleBackColor = true;
+            this.buttonCropStart.Click += new System.EventHandler(this.buttonCropStart_Click);
+            // 
+            // buttonCropApply
+            // 
+            this.buttonCropApply.Enabled = false;
+            this.buttonCropApply.Location = new System.Drawing.Point(21, 71);
+            this.buttonCropApply.Name = "buttonCropApply";
+            this.buttonCropApply.Size = new System.Drawing.Size(319, 36);
+            this.buttonCropApply.TabIndex = 1;
+            this.buttonCropApply.Text = "Apply Crop";
+            this.buttonCropApply.UseVisualStyleBackColor = true;
+            this.buttonCropApply.Click += new System.EventHandler(this.buttonCropApply_Click);
+            // 
+            // buttonCropReject
+            // 
+            this.buttonCropReject.Enabled = false;
+            this.buttonCropReject.Location = new System.Drawing.Point(21, 124);
+            this.buttonCropReject.Name = "buttonCropReject";
+            this.buttonCropReject.Size = new System.Drawing.Size(319, 36);
+            this.buttonCropReject.TabIndex = 2;
+            this.buttonCropReject.Text = "Reject Crop";
+            this.buttonCropReject.UseVisualStyleBackColor = true;
+            this.buttonCropReject.Click += new System.EventHandler(this.buttonCropReject_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,6 +364,7 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownContrast)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             this.toolStripStandard.ResumeLayout(false);
             this.toolStripStandard.PerformLayout();
             this.ResumeLayout(false);
@@ -355,6 +395,9 @@
         private System.Windows.Forms.ToolStripMenuItem modeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adjustToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cropToolStripMenuItem;
+        private System.Windows.Forms.Button buttonCropStart;
+        private System.Windows.Forms.Button buttonCropReject;
+        private System.Windows.Forms.Button buttonCropApply;
     }
 }
 

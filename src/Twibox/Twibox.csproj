@@ -7,7 +7,7 @@
     <ProjectGuid>{19BDECE9-5657-4088-9155-A834A696F555}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Vurdalakov</RootNamespace>
-    <AssemblyName>Twibox</AssemblyName>
+    <AssemblyName>Darkbox</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -120,6 +120,7 @@
     <Compile Include="Vurdalakov\StringExtensions.cs" />
     <Compile Include="Vurdalakov\ThreadSafeInt64.cs" />
     <Compile Include="Vurdalakov\WindowPlacement.cs" />
+    <Compile Include="WebService\CropModule.cs" />
     <Compile Include="WebService\AdjustmentModule.cs" />
     <Compile Include="WebService\ApplicationModule.cs" />
     <Compile Include="WebService\WebService.cs" />
