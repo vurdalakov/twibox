@@ -17,16 +17,24 @@
             {
                 Trace("Darkbox application is already running");
 
-                using (var client = new NamedPipeClientStream("DarkboxInfo"))
+                try
                 {
-                    client.Connect();
+                    using (var client = new NamedPipeClientStream("DarkboxInfo"))
+                    {
+                        client.Connect(2500);
 
-                    var reader = new StreamReader(client);
-                    var writer = new StreamWriter(client);
+                        var reader = new StreamReader(client);
+                        var writer = new StreamWriter(client);
 
-                    writer.WriteLine("popup");
-                    writer.Flush();
-                    reader.ReadLine();
+                        writer.WriteLine("popup");
+                        writer.Flush();
+                        var answer = reader.ReadLine();
+                        Trace($"{answer}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace(ex, "Pipe client");
                 }
 
                 return;

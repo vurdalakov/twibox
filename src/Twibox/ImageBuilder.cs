@@ -62,9 +62,6 @@
             this.DrawImage();
         }
 
-        private delegate void DrawImageEventDelegate();
-        private DrawImageEventDelegate _drawImageEventDelegate = null;
-
         private void DrawImage()
         {
             this._imageControl.InvokeIfRequired(() =>

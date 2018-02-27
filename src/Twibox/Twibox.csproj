@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PipeServer.cs" />
     <Compile Include="Vurdalakov\AssemblyExtensions.cs" />
     <Compile Include="Vurdalakov\ControlExtensions.cs" />
     <Compile Include="DebugTracing.cs" />
@@ -114,6 +115,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Vurdalakov\FormExtensions.cs" />
+    <Compile Include="Vurdalakov\NamedPipeServer.cs" />
     <Compile Include="Vurdalakov\SerializeTool.cs" />
     <Compile Include="Vurdalakov\StringExtensions.cs" />
     <Compile Include="Vurdalakov\ThreadSafeInt64.cs" />
